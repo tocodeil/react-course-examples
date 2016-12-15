@@ -6,6 +6,8 @@
  * Typing a value in either field updates the other two with corresponding values.
  */
 
+// this is my answer
+
 import React from 'react';
 
 export default React.createClass({
