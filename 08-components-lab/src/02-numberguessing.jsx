@@ -13,5 +13,54 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class MultiInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            result: "start guessing...",
+            number: Math.floor(Math.random() * (1000 - 1)) + 1,
+        };
+    }
+
+    guess = (ev) => {
+        console.log("guessed " + ev.target.value);
+        var result = this.checkResult(ev.target.value);
+        console.log(result);
+        this.setState({ result: result });
+    };
+
+    checkResult = (number) => {
+        var liar = Math.floor(Math.random() * (10 - 0)) + 0;
+        console.log("liar = " + liar);
+        if (number == this.state.number) {
+            return "correct";
+        } else if (liar < 2){
+            switch(liar) {
+                case 1 : {
+                    return "higher";
+                }
+                case 0: {
+                    return "lower";
+                }
+            }
+        }
+
+        if (number > this.state.number){
+            return "higher";
+        } else {
+            return "lower";
+        }
+    }
+
+    render(props) {
+        var style = {
+            color: 'white'
+        };
+        return (
+            <div>
+                <p>Guess the number</p>
+                <p>{this.state.result}</p><p style={style}>{this.state.number}</p>
+                <input type="number" onChange={this.guess}></input>
+            </div>);
+    }
+}
