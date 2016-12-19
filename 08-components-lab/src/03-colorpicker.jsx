@@ -13,5 +13,24 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class ColorPicker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtColor: "white"
+        }
+    }
+
+    changeColor = (evt) => {
+        this.setState({txtColor: evt.target.value});
+
+    }
+    render(){
+
+        return <div>
+            <input type="text" placeholder="pick a color" value={this.state.txtColor} name="pickAColor" onChange={this.changeColor} />
+            <br />
+            <div style={{backgroundColor : this.state.txtColor, width:"100px", height:"100px"}} />
+        </div>
+    }
+}
