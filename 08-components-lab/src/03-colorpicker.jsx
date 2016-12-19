@@ -1,17 +1,27 @@
-/**
- * Lab 03:
- *
- * Implement a color picker component.
- *
- * Component should show an <input> field to select a color, and below a <div>
- * When a color is selected, that color should be used as the background color
- * of the <div>
- *
- * Bonus: Allow external code to pass some text to be used as the contents of the
- * colored <div>
- */
+import React from "react";
 
-import React from 'react';
+export default class ColorPicker extends React.Component {
+    static propTypes = {
+        divMsg: React.PropTypes.string,
+    };
 
-export default React.createClass({
-});
+    static defaultProps = {};
+
+    constructor(props) {
+        super(props);
+        this.state = {color: '#hexvalue'};
+    }
+
+    handleChange(e) {
+        this.setState({color: e.target.value});
+    }
+
+    render() {
+        var style = {
+            backgroundColor: this.state.color,
+        };
+        return (<div style={style}>{this.props.divMsg}
+            <input type="color" value={this.state.color} onChange={this.handleChange.bind(this)}/>
+        </div>);
+    }
+}
