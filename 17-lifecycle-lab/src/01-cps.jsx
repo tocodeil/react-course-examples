@@ -12,7 +12,7 @@ export default createClass({
   render() {
     return (<div>
       <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
+      <p>CPS rate: {1}</p>
     </div>);
   }
 });
