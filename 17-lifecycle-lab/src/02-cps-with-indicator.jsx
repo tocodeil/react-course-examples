@@ -1,26 +1,60 @@
-/**
- * Lab 02: CPS monitor with indicator
- *
- * Add an indicator panel to the CPS monitor
- * that shows a green rectangle if user clicks fast enough
- * or a red rectangle if user clicks too slow
- *
- * Decide how to share information between the components
- * and what values to pass when creating the Indicator
- */
-
 import React from 'react';
 
-const Indicator = React.createClass({
-});
+export default class ClicksCounter extends React.Component {
 
-export default createClass({
-  render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            counter: 0,
+            fastPlayer: false,
+        };
+
+        this.incClickCounter = this.incClickCounter.bind(this);
+    }
+
+    componentWillMount() {
+        this.timer = setInterval(() => {
+            this.setState({counter: 0});
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    incClickCounter() {
+        let counter = this.state.counter + 1;
+        let fastPlayer = false;
+        if (counter > 4) {
+            fastPlayer = true;
+        }
+
+        this.setState({
+            counter,
+            fastPlayer,
+        });
+    }
+
+    render() {
+        return (<div>
+            <button onClick={this.incClickCounter}>Click Fast</button>
+            <div>yo clicked: {this.state.counter}</div>
+            <ColorIndicator fastPlayer={this.state.fastPlayer}/>
+        </div>);
+    }
+}
+function ColorIndicator(props) {
+    const style = {
+        width: "100px",
+        height: "50px",
+        backgroundColor: "none",
+    };
     return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-      <Indicator />
+        {(props.fastPlayer && <div style={{...style, backgroundColor: "green"}}>"calm down.."</div>) ||
+        (!props.fastPlayer && <div style={{...style, backgroundColor: "red"}}>"faster!"</div>)}
     </div>);
-  }
-});
+}
 
+ColorIndicator.PropTypes = {
+    fastPlayer: React.PropTypes.bool.isRequired,
+};
