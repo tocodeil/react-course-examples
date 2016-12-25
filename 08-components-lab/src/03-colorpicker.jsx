@@ -13,5 +13,45 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class ColorPicker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            color: '#3599db',
+            text: ""
+        }
+    }
+
+    changeColor = (evt) => {
+        this.setState({
+            color: evt.target.value
+        });
+    }
+
+    onTextChange = (evt) => {
+        this.setState({
+            text: evt.target.value
+        });
+    }
+
+    render() {
+        return (
+
+            <div>
+                <h2>03 - Color Picker</h2>
+                <br/>
+                <br/>
+                <input type="color" value={this.state.color} onChange={this.changeColor}/>
+                <br/>
+                <div style={{width: 100, height: 100, background: this.state.color}}>
+                    <p>{this.state.text}</p>
+                </div>
+                <br/>
+                <input type="string" value={this.state.text} onChange={this.onTextChange}/>
+            </div>
+        );
+    }
+}
+
+
+
