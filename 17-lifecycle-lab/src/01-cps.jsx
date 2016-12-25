@@ -1,18 +1,49 @@
 /**
- * Lab 01: Click per seconds
- *
- * Write a component that counts clicks per second.
- * Component should show a button and some text, and print
- * the click-per-seconds rate.
+ * Created by Test1 on 25/12/2016.
  */
 
 import React from 'react';
 
-export default createClass({
-  render() {
-    return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-    </div>);
-  }
-});
+export default class CounterPerSecond extends React.Component {
+
+    constructor() {
+        super();
+        this.state = { message: ""  };
+        setInterval(this.checkFrequency, 1000);
+    }
+
+
+    componentWillMount() {
+        this.cnt=0;
+        this.timer = setInterval(() => {
+            this.setState({ ticks: this.state.ticks + 1 });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    handleClick = (event) => {
+        this.setState({cnt: this.state.cnt + 1});
+    }
+
+    checkFrequency = () => {
+        if (this.state.cnt > 2) {
+            this.setState({message: "too fast!"});
+        } else if (this.state.cnt < 2) {
+            this.setState({message: "too slow...."});
+        }
+        this.setState({cnt: 0});
+    }
+
+
+
+    render() {
+        return (<div >
+            <input type="button" onClick={this.handleClick} value="click me"/>
+            <label>{this.state.message}</label>
+        </div>);
+    }
+
+}
