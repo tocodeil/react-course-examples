@@ -11,16 +11,34 @@
 
 import React from 'react';
 
-const Indicator = React.createClass({
-});
+export default class Indicator  extends React.Component{
 
-export default createClass({
-  render() {
-    return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-      <Indicator />
-    </div>);
-  }
-});
+    constructor(props) {
+        super(props);
+    }
 
+   /* renderColor = (color) => {
+        const baseStyle = {
+            width: '50px',
+            height: '50px',
+            display: 'inline-block',
+        };
+        return
+            <div
+                style={Object.assign({}, baseStyle, {backgroundColor: this.props.color} )} >
+            </div>;
+    }*/
+
+    render() {
+        const baseStyle = {
+            width: '50px',
+            height: '50px',
+            display: 'inline-block',
+        };
+
+        return <div
+            style={Object.assign({}, baseStyle, {backgroundColor: this.props.color} )}
+        >
+        </div>;
+    }
+};
