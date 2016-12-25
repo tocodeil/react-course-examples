@@ -1,48 +1,84 @@
 /**
- * Add a timer to the following Red Spotter game
- * When a user doesn't do anything for 2 seconds, she should
- * lose 3 points.
+ * Lab 01:
+ *
+ * Write a game that shows 10 squares: 9 gray and 1 red.
+ * When a user clicks on the red she gets 5 points and red changes its place.
+ * When a user clicks on any other square nothing happens.
+ *
  */
 
 import React from 'react';
-import _ from 'underscore';
 
-const SQUARES_COUNT = 10;
-const SQUARE_STYLE = {
-  width: '100px',
-  height: '100px',
-  background: 'gray',
-  display: 'inline-block',
-};
+export default class RedSpotter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            score: 0,
+            redIndex: 0,
+            inactiveInSec:0,
+            cells: []
+        }
+        this.initGame()
+    }
 
-const WINNER_STYLE = Object.assign({}, SQUARE_STYLE, {
-  background: 'red',
-});
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      winner: _.random(SQUARES_COUNT),
-      score: 0,
-    };
-  },
+    componentWillMount() {
+        this.start =
+            this.timer = setInterval(this.tick, 1000);
+    }
 
-  shuffle() {
-    this.setState({ 
-      winner: _.random(SQUARES_COUNT),
-      score: this.state.score + 5,
-    });
-  },
+    tick = () => {
+        let inactiveInSec = this.state.inactiveInSec + 1;
+        if (inactiveInSec >= 2){
+           const score = this.state.score-3;
 
-  render() {
-    return (<div>
-      <p>Score: {this.state.score}</p>
-      {_.range(SQUARES_COUNT).map((index) => (
-        <div 
-          onClick={() => (this.state.winner === index) && this.shuffle()}
-          style={index === this.state.winner ? WINNER_STYLE : SQUARE_STYLE} />
+            this.setState({inactiveInSec, score});
+        }else{
+            this.setState({inactiveInSec});
+        }
 
-      ))}
-    </div>);
-  }
-});
+    }
+
+
+    initGame() {
+        this.state.redIndex = Math.floor(Math.random() * 10 );
+        for (var i=0; i < 10; i++){
+            if (i !== this.state.redIndex)
+                this.state.cells[i] = "grey";
+            else
+                this.state.cells[i] = "red";
+        }
+    }
+
+    render(){
+        return <div>
+            <input type="number" disabled="disabled" value={this.state.score} />
+            <br />
+            {this.state.cells.map((val, idx) => (
+                <div onClick={this.calcScore.bind(this,idx)} style={{backgroundColor : this.state.cells[idx], width:"50px", height:"50px", display:"inline-block",border:"2px", borderColor:"black"}} tabIndex={idx} />
+            ))}
+            <br/>
+            <button onClick={this.resetGame.bind(this)}>Start new game</button>
+        </div>
+    }
+
+
+    resetGame() {
+        this.setState({score: 0});
+        this.initGame();
+    }
+
+    calcScore(idx){
+        if (idx === this.state.redIndex) {
+            this.setState({score: this.state.score + 10,
+                inactiveInSec: 0});
+             this.initGame();
+        } else {
+            this.setState({score: this.state.score - 5,
+                inactiveInSec: 0});
+        }
+    }
+}
