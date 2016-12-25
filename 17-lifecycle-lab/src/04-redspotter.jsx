@@ -5,44 +5,73 @@
  */
 
 import React from 'react';
-import _ from 'underscore';
 
-const SQUARES_COUNT = 10;
-const SQUARE_STYLE = {
-  width: '100px',
-  height: '100px',
-  background: 'gray',
-  display: 'inline-block',
-};
+import RedButton from '04-redbutton';
 
-const WINNER_STYLE = Object.assign({}, SQUARE_STYLE, {
-  background: 'red',
-});
+export default class RedSpotter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            redLocation: 0,
+            score: 0,
+        };
+    }
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      winner: _.random(SQUARES_COUNT),
-      score: 0,
-    };
-  },
+    restart = () => {
+      this.state.score = 0;
+      this.reOrderButtons();
+    }
 
-  shuffle() {
-    this.setState({ 
-      winner: _.random(SQUARES_COUNT),
-      score: this.state.score + 5,
-    });
-  },
+    playGame = (clickedColor) => {
+        this.resetTimer();
+        console.log("clicked color " + clickedColor);
+        if (clickedColor === 'red') {
+          this.state.score = this.state.score + 10;
+        } else {
+            this.state.score = this.state.score - 5;
+        }
+        if (this.state.score < 0) {
+          this.state.score = 0;
+        }
+        this.reOrderButtons();
+    }
 
-  render() {
-    return (<div>
-      <p>Score: {this.state.score}</p>
-      {_.range(SQUARES_COUNT).map((index) => (
-        <div 
-          onClick={() => (this.state.winner === index) && this.shuffle()}
-          style={index === this.state.winner ? WINNER_STYLE : SQUARE_STYLE} />
+    resetTimer = () => {
+        clearInterval(this.timer);
+        this.timer = setInterval(this.reduceScoreOnWait, 1000);
+    }
 
-      ))}
-    </div>);
-  }
-});
+
+    reduceScoreOnWait = () => {
+      let score = this.state.score
+      if (this.state.score > 2) {
+        score = score - 3;
+      }
+      this.setState({score});
+    }
+
+    componentWillMount() {
+        this.timer = setInterval(this.reduceScoreOnWait, 1000);
+    }
+
+    reOrderButtons = (ev) => {
+        this.setState({redLocation: Math.floor(Math.random() * (10 - 0)) + 0});
+    }
+
+    render(props) {
+        const buttonArray = [];
+        for (let i = 0; i<10; i++) {
+            buttonArray[i] = 'grey';
+        }
+        buttonArray[this.state.redLocation] = 'red';
+
+        return (
+            <div>
+              <button onClick={this.restart}>התחל משחק</button><p>{this.state.score}</p>
+                {buttonArray.map((val, idx) => (
+                    <RedButton key={idx} color={val} playGame={this.playGame}/>
+                ))}
+            </div>
+        )
+    }
+}
