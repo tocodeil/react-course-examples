@@ -11,16 +11,19 @@
 
 import React from 'react';
 
-const Indicator = React.createClass({
-});
+export default function CPSIndicator(props) {
+    return (
+       <div style={{backgroundColor : props.color, width:"50px", height:"50px", display:"inline-block"}} />
+    )
+}
 
-export default createClass({
-  render() {
-    return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-      <Indicator />
-    </div>);
-  }
-});
+CPSIndicator.propTypes = {
+    color: React.PropTypes.string
+}
+
+CPSIndicator.defaultProps = {
+    color: "white"
+}
+
+
 
