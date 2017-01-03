@@ -1,17 +1,39 @@
-/**
- * Lab 02:
- *
- * Implement a number guessing game component.
- *
- * The component should provide an input field for the user to guess a
- * number picked randomly by the computer (from 1 to 1,000).
- * When typing a number, the component should print "too low" or "too high" 
- * as a hint to the user.
- *
- * To make the game interesting, computer should sometimes cheat and print wrong messages.
- */
+class GuessingGame  extends React.Component{
+  static propTypes = {
+    hidden: React.PropTypes.number.isRequired,
+    
+  };
+ constructor(props) {
+    super(props);
+    this.props.hidden = Math.floor(1000*Math.random());
+    this.state = { guess:"" };
+  }
 
-import React from 'react';
+  checkGuess(e){
 
-export default React.createClass({
-});
+    var g = parseInt(e.target.value);
+    var rand = Math.random();
+    if(g==this.props.hidden){
+      this.setState({guess:"Right!"});
+    }
+    else{
+      if(rand<0.3){
+        this.setState({ guess:g>this.props.hidden?"Too Small":"Too Big"});
+      }else{
+      this.setState({ guess:g>this.props.hidden?"Too Big":"Too Small"});
+      }
+    }
+  }
+  render() {
+    return <div>
+      <input onChange={(e)=>this.checkGuess(e)} /><br/>
+      <label>{this.state.guess}</label>
+
+      </div>
+  }
+}
+  
+
+
+ReactDOM.render(<GuessingGame/>,
+               document.querySelector('main'));
