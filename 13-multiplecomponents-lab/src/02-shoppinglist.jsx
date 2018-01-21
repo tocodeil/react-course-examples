@@ -22,7 +22,7 @@ function ShoppingItemsCount(props) {
   return <p>Total items: {props.count}</p>
 }
 
-export default React.createClass({
-});
+export default class ShoppingList extends React.Component {
+}
 
 

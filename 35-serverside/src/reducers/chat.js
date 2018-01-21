@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
-import { symbols } from 'actions/chat';
-import { symbols as gameSymbols } from 'actions/xogame';
+import { symbols } from '../actions/chat';
+import { symbols as gameSymbols } from '../actions/xogame';
 
 const initialState = Immutable.fromJS({
   messages: [],

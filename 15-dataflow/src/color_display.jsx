@@ -1,19 +1,22 @@
 import React from 'react';
 
-const ColorDisplay = React.createClass({
-  propTypes: {
+export default class ColorDisplay extends React.Component {
+  static propTypes = {
     val: React.PropTypes.string.isRequired,
-
     setColor: React.PropTypes.func.isRequired,
-  },
+  };
 
-  render: function() {
-    return <input 
-      type="color" 
-      value={this.props.val} 
-      onChange={(e) => this.props.setColor(e.target.value)}
-    />
+  changeColor = (e) => {
+    this.props.setColor(e.target.value);
   }
-});
 
-export default ColorDisplay;
+  render() {
+    return (
+      <input 
+        type="color" 
+        value={this.props.val} 
+        onChange={this.changeColor}
+      />
+    )
+  }
+}

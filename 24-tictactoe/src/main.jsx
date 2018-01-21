@@ -13,7 +13,8 @@ var TicTacToeUtils = {
     /([^\s])...\1...\1/,
     /..([^\s]).\1.\1../,    
   ],
-  hasWinner: function(boardAsArray) {
+
+  hasWinner(boardAsArray) {
     var board = boardAsArray.join('');
     var winningRegexp = _.find(TicTacToeUtils.WINNERS, function(re) {
       return board.match(re);
@@ -22,32 +23,34 @@ var TicTacToeUtils = {
       return board.match(winningRegexp)[1];
     }
   },
-  isTie: function(boardAsArray) {
+
+  isTie(boardAsArray) {
     return _.every(boardAsArray, function(item) {
       return item !== ' ';
     });
   }
 }
 
-var TicTacToe = React.createClass({
-  getInitialState: function() {
-    return {
+class TicTacToe extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       board: _.range(9).map(function() { return ' ' }),
       currentPlayer: 'x',
-    }
-  },
-  
-  play: function(idx) {
+    };
+  }
+
+  play(idx) {
     var { board, currentPlayer } = this.state;
     
     if (board[idx] === ' ') {
-      board[idx] = currentPlayer;
+      board[idx]    = currentPlayer;
       currentPlayer = (currentPlayer === 'x' ? 'o' : 'x');
-      this.setState({ board: board, currentPlayer: currentPlayer });      
+      this.setState(oldState => ({ board: board, currentPlayer: currentPlayer }));
     } 
-  }, 
-  
-  render: function() {
+  }
+
+  render() {
     var winner = TicTacToeUtils.hasWinner(this.state.board);
     var isTie = TicTacToeUtils.isTie(this.state.board);
     var gameOver = winner || isTie;
@@ -64,7 +67,7 @@ var TicTacToe = React.createClass({
       </div>
     </div>
   }
-});
+}
 
 ReactDOM.render(<TicTacToe />, document.querySelector('main'));
 

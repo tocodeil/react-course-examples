@@ -2,26 +2,28 @@ import React from 'react';
 import _ from 'underscore';
 
 // Multi Game Component
-export default React.createClass({
-  getInitialState: function() {
-    return {
+export default class MultiGame extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       activeItem: 0
-    }
-  },
+    };
+  }
   
-  setActiveItem: function(idx) {
-    this.setState({
+  setActiveItem = (e) => {
+    const idx = e.target.value;
+    this.setState(oldState => ({
       activeItem: idx,
-    });
-  },
+    }));
+  }
   
-  render: function() {
-    var children = React.Children.toArray(this.props.children);
+  render() {
+    const children = React.Children.toArray(this.props.children);
 
     return <div>
       <select 
         value={this.state.activeItem}
-        onChange={(e) => this.setActiveItem(e.target.value)}>
+        onChange={this.setActiveItem}>
         {_.map(children, function(item, index) {
           return <option key={item.key} value={index}>{index}</option>;
         })}
@@ -30,4 +32,4 @@ export default React.createClass({
       {children[this.state.activeItem]}
       </div>
     }
-});
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class HelloWorld extends React.createComponent {
+export default class HelloWorld extends React.Component {
   static propTypes = {
     name: React.PropTypes.string
   };
@@ -14,14 +14,14 @@ export default class HelloWorld extends React.createComponent {
     this.state = { hide: true };
   }
 
-  toggle() {
-    this.setState({ hide: !this.state.hide });
+  toggle = (e) => {
+    this.setState((oldState) => ({ hide: !oldState.hide }));
   }
 
   render() {
     return <p>
       Hello: {this.state.hide ? "XXX" : this.props.name} 
-      <button onClick={(e) => this.toggle(e)}>
+      <button onClick={this.toggle}>
         Click To Toggle</button>
     </p>
   }

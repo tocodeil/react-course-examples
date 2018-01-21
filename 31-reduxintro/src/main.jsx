@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from 'reducer';
+import store from './reducer';
 
 const App = function(props) {
   return <p>Hello World</p>;

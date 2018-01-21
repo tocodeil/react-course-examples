@@ -10,5 +10,5 @@
 import React from 'react';
 import zoomove from 'zoomove';
 
-export default React.createClass({
-});
+export default class ReactZooMove extends React.Component {
+}

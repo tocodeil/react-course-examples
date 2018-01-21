@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from 'reducer';
-import XOGame from 'xogame';
+import store from './reducer';
+import XOGame from './xogame';
 import { Provider } from 'react-redux';
 
 const App = function(props) {

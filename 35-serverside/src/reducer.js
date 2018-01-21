@@ -5,10 +5,10 @@
 //
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import gameReducer from 'reducers/xogame';
-import chatReducer from 'reducers/chat';
+import gameReducer from './reducers/xogame';
+import chatReducer from './reducers/chat';
 import thunk from 'redux-thunk';
-import * as actions from 'actions/chat';
+import * as actions from './actions/chat';
 
 const reducer = combineReducers({
   game: gameReducer,

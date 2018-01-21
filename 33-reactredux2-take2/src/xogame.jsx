@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
@@ -10,17 +11,17 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(React.createClass({
-  propTypes: {
-    board: React.PropTypes.object,
-    currentPlayer: React.PropTypes.string,
+class XOGame extends React.Component {
+  static propTypes = {
+    board: PropTypes.object,
+    currentPlayer: PropTypes.string,
 
-    dispatch: React.PropTypes.func,
-  },
+    dispatch: PropTypes.func,
+  };
 
   play(i, j) {
     this.props.dispatch({ type: '@@play', payload: { i:i , j:j }});
-  },
+  }
 
   render() {
     return (<div className="game">
@@ -37,7 +38,10 @@ export default connect(mapStateToProps)(React.createClass({
       ))}
     </div>);
   }
-}));
+}
+
+
+export default connect(mapStateToProps)(XOGame);
 
 
 

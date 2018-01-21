@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Clicker from 'clicker';
+import Clicker from './clicker';
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
-    return (<div>
+    return (
+      <div>
         <Clicker />
         <Clicker />
         <Clicker />
         <Clicker />
         <Clicker />
-      </div>);
+      </div>
+    );
   }
-});
+}
 
 ReactDOM.render(<App />, document.querySelector('main'));
 

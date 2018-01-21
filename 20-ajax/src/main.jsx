@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const App = React.createClass({
-  getInitialState() {
-    return {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       results: [
         {
           Title: "Fargo",
@@ -15,23 +16,28 @@ const App = React.createClass({
       ],
       search: ''
     };
-  },
-  
-  search() {
+  }
+
+  search = () => {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://omdbapi.com/?s=' + this.state.search);
+    xhr.open('GET', 'http://omdbapi.com/?apikey=4bc20e4a&s=' + this.state.search);
     xhr.addEventListener('load', () => {
       const results = JSON.parse(xhr.responseText).Search;      
-      this.setState({results: results });
+      this.setState(oldState => ({results: results }));
     });
     xhr.send();
-  },
-  
-  render: function() {
+  };
+
+  setSearchText = (e) => {
+    const text = e.target.value;
+    this.setState(oldState => ({ search: text }));
+  };
+
+  render() {
     return <div>
       <input 
         type="text" 
-        onChange={(e) => this.setState({search: e.target.value})} />
+        onChange={this.setSearchText} />
       
       <button onClick={this.search}>Search</button>
       
@@ -46,7 +52,7 @@ const App = React.createClass({
       </ul>
     </div>
   }
-});
+}
 
 ReactDOM.render(<App />, document.querySelector('main'));
 

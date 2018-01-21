@@ -11,16 +11,18 @@
 
 import React from 'react';
 
-const Indicator = React.createClass({
-});
+class Indicator extends React.Component {
+}
 
-export default createClass({
+export default class CpsWithIndicator extends React.Component {
   render() {
-    return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-      <Indicator />
-    </div>);
+    return (
+      <div>
+        <button>Click Fast</button>
+        <p>CPS rate: {0}</p>
+        <Indicator />
+      </div>
+    );
   }
-});
+}
 

@@ -1,27 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-export default React.createClass({
-  propTypes: {
-    store: React.PropTypes.object
-  },
+export default class XOGame extends React.Component {
+  static propTypes = {
+    store: PropTypes.object
+  }
 
-  getInitialState() {
-    return this.mapStoreToState(this.props.store);
-  },
+  constructor(props) {
+    super(props);
+    this.state = this.mapStoreToState(this.props.store);
+  }
 
   componentDidMount() {
     this.unsubsribe = this.props.store.subscribe(this.dataChanged);
-  },
+  }
 
   componentWillUnmount() {
     this.unsubscribe();
-  },
+  }
 
-  dataChanged() {
+  dataChanged = () => {
     this.setState(this.mapStoreToState(this.props.store));
-  },
-
+  }
 
   mapStoreToState(store) {
     const state = store.getState();
@@ -30,11 +31,11 @@ export default React.createClass({
       board: state.get('board'),
       currentPlayer: state.get('currentPlayer')
     }
-  },
+  }
 
   play(i, j) {
     this.props.store.dispatch({ type: '@@play', payload: { i:i , j:j }});
-  },
+  }
 
   render() {
     return (<div className="game">
@@ -51,4 +52,5 @@ export default React.createClass({
       ))}
     </div>);
   }
-});
+}
+

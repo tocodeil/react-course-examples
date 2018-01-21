@@ -1,9 +1,18 @@
 import React from 'react';
 
-const TextDisplay = React.createClass({
-  render: function() {
-    return <input type="text" value={this.props.val} />
+export default class TextDisplay extends React.Component {
+  changeColor = (e) => {
+    this.props.setColor(e.target.value);
   }
-});
 
-export default TextDisplay;
+  render() {
+    return (
+      <input
+        type="text"
+        value={this.props.val}
+        onChange={this.changeColor}
+      />
+    );
+  }
+}
+

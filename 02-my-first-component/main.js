@@ -1,8 +1,7 @@
 "use strict";
 
-var HelloWorld = React.createClass({
-  displayName: "HelloWorld",
-  render: function render() {
+class HelloWorld extends React.Component {
+  render() {
     return React.createElement(
       "div",
       { className: "hello-world" },
@@ -15,11 +14,12 @@ var HelloWorld = React.createClass({
       )
     );
   }
-});
+}
 
-var App = React.createClass({
-  displayName: "App",
-  render: function render() {
+HelloWorld.displayName = 'HelloWorld';
+
+class App extends React.Component {
+  render() {
     return React.createElement(
       "div",
       null,
@@ -29,6 +29,8 @@ var App = React.createClass({
       React.createElement(HelloWorld, null)
     );
   }
-});
+}
+
+App.displayName = 'App';
 
 ReactDOM.render(React.createElement(App), document.querySelector('main'));

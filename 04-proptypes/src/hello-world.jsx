@@ -1,20 +1,20 @@
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+export default class HelloWorld extends React.Component {
+  static propTypes = {
     name: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      name: 'Guest'
-    };
-  },
+  static defaultProps = {
+    name: 'Guest'
+  }
 
   render() {
-    return (<div className="hello-world">
-      <p>Hello World: {this.props.name} </p>
-    </div>)    
+    return (
+      <div className="hello-world">
+        <p>Hello World: {this.props.name} </p>
+      </div>
+    )    
   }
-});
+}
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import TicTacToe from 'tic-tac-toe';
-import MultiGame from 'multi-game';
 import _ from 'underscore';
+
+import TicTacToe from './tic-tac-toe';
+import MultiGame from './multi-game';
 
 const App = React.createClass({
   getInitialState: function() {

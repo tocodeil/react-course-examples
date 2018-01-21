@@ -1,12 +1,12 @@
 import React from 'react';
-import * as actions from 'actions/chat';
 import { connect } from 'react-redux';
+import * as actions from './actions/chat';
 
-const Chat = React.createClass({
-  addMessage() {
+class Chat extends React.Component {
+  addMessage = () => {
     const text = this.refs.el.value;
     this.props.dispatch(actions.addMessage(text));
-  },
+  }
 
   render() {
     return <div>
@@ -19,7 +19,7 @@ const Chat = React.createClass({
       </ul>
     </div>
   }
-});
+}
 
 function mapStateToProps(state) {
   return {

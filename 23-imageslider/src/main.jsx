@@ -2,16 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
-const ContentSlider = React.createClass({
-  getInitialState: function() {
-    return { activeItem: 0 }
-  },
+class ContentSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeItem: 0 };
+  }
 
-  setActiveItem: function(index) {
-    this.setState({activeItem: index});
-  },
+  setActiveItem(index) {
+    this.setState(oldState => ({activeItem: index}));
+  }
 
-  render: function() {
+  render() {
     var childrenCount = React.Children.count(this.props.children);
     var newChildren = React.Children.map(this.props.children, function(child) {
       return React.cloneElement(child, { className: "simple-slider__slider-item"});
@@ -34,18 +35,21 @@ const ContentSlider = React.createClass({
         </div>        
       </div>
   }
-});
 
-var App = React.createClass({
-  render: function() {
-    return <ContentSlider>
-          <img src="https://pbs.twimg.com/media/CBgCOOQW8AA3OCq.png" />
-          <img src="https://pbs.twimg.com/media/CINXyYQWwAA_hlT.jpg" />
-          <img src="https://updatesfromthefield.files.wordpress.com/2010/12/lolcat2.jpg" />
-          <p>Just remember that death is not the end</p>
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <ContentSlider>
+        <img src="https://pbs.twimg.com/media/CBgCOOQW8AA3OCq.png" />
+        <img src="https://pbs.twimg.com/media/CINXyYQWwAA_hlT.jpg" />
+        <img src="https://updatesfromthefield.files.wordpress.com/2010/12/lolcat2.jpg" />
+        <p>Just remember that death is not the end</p>
       </ContentSlider>
+    );
   }
-});
+}
 
 ReactDOM.render(<App />, document.querySelector('main'));
 

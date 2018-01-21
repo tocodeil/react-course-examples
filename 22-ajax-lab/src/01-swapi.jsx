@@ -13,16 +13,18 @@
 
 import React from 'react';
 
-const Person = React.createClass({
-});
+class Person extends React.Component {
+}
 
-const Film = React.createClass({
-});
+class Film extends React.Component {
+}
 
-export default React.createClass({
+export default class SwApi extends React.Component {
   render() {
-    return <div>
-      <Person id={1} />
-    </div>
+    return (
+      <div>
+        <Person id={1} />
+      </div>
+    )
   }
-});
+};

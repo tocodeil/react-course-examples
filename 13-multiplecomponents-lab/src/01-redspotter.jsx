@@ -9,5 +9,5 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class RedSpotter extends React.Component {
+}

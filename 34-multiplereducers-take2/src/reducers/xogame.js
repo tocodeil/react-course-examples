@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import { symbols } from 'actions/xogame';
+import { symbols } from '../actions/xogame';
 
 const EMPTY_ROW = Immutable.fromJS([' ', ' ', ' ']);
 const EMPTY_BOARD = Immutable.fromJS([EMPTY_ROW, EMPTY_ROW, EMPTY_ROW]);

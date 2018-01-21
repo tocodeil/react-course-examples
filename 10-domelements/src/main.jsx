@@ -1,29 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var TextBox = React.createClass({
-  getInitialState() {
-    return { items: [] };
-  },
-  
-  add() {
-    var text = this.refs.el.value;
-    this.refs.el.value = '';
-    
-    this.setState({ items: [...this.state.items, text] });
-  },
-  
-  render() {
-    return (<div>
-        <input type="text" ref="el" />
-        <button onClick={this.add}>Add</button>
-        
-        {this.state.items.map((item) => (
-          <p>{item}</p>
-        ))}
-      </div>);
+class TextBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { items: [] };
   }
-});
+
+  add = (e) => {
+    const text = this.el.value;
+    this.el.value = '';
+    this.setState(oldState => ({ items: [...oldState.items, text] }));
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" ref={(el) => { this.el = el; } } />
+        <button onClick={this.add}>Add</button>
+
+        {this.state.items.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+      </div>
+    );
+  }
+}
 
 const App = function(props) {
   return <TextBox />

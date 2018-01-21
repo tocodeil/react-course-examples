@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from 'reducer';
-import XOGame from 'xogame';
-import Chat from 'chat';
 import { Provider } from 'react-redux';
+import store from './reducer';
+import XOGame from './xogame';
+import Chat from './chat';
 
 const App = function(props) {
   return <Provider store={props.store}>

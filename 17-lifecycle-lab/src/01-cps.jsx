@@ -8,11 +8,13 @@
 
 import React from 'react';
 
-export default createClass({
+export default class Cps extends React.Component{
   render() {
-    return (<div>
-      <button>Click Fast</button>
-      <p>CPS rate: {0}</p>
-    </div>);
+    return (
+      <div>
+        <button>Click Fast</button>
+        <p>CPS rate: {0}</p>
+      </div>
+    );
   }
-});
+}

@@ -1,26 +1,29 @@
 import React from 'react';
 import _ from 'underscore';
+import PropTypes from 'proptypes';
 
-export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-  },
-  
-  getInitialState() {
-    return { selectedItem: 0 };
-  },
+export default class Randomizer extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+  }
 
-  randomize() {
+  constructor(props) {
+    super(props);
+    this.state = { selectedItem: 0 };
+  }
+
+  randomize = () => {
     const count = React.Children.count(this.props.children);
-    this.setState({ selectedItem: _.random(count-1)});
-  },
+    this.setState(oldState => ({ selectedItem: _.random(count-1)}));
+  }
 
-    
   render() {
     const items = React.Children.toArray(this.props.children);
-    return (<div>The List:
-      {items[this.state.selectedItem]}
-      <button onClick={this.randomize}>Randomize</button>
-    </div>);
+    return (
+      <div>The List:
+        {items[this.state.selectedItem]}
+        <button onClick={this.randomize}>Randomize</button>
+      </div>
+    );
   }
-});
+}

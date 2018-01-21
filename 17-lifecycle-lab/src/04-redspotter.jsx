@@ -19,30 +19,33 @@ const WINNER_STYLE = Object.assign({}, SQUARE_STYLE, {
   background: 'red',
 });
 
-export default React.createClass({
-  getInitialState() {
-    return {
+export default class RedSpotter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       winner: _.random(SQUARES_COUNT),
       score: 0,
-    };
-  },
+    }
+  }
 
-  shuffle() {
-    this.setState({ 
+  shuffle = () => {
+    this.setState(oldState => ({ 
       winner: _.random(SQUARES_COUNT),
-      score: this.state.score + 5,
-    });
-  },
+      score: oldState.score + 5,
+    }));
+  }
 
   render() {
-    return (<div>
-      <p>Score: {this.state.score}</p>
-      {_.range(SQUARES_COUNT).map((index) => (
-        <div 
-          onClick={() => (this.state.winner === index) && this.shuffle()}
-          style={index === this.state.winner ? WINNER_STYLE : SQUARE_STYLE} />
-
-      ))}
-    </div>);
+    return (
+      <div>
+        <p>Score: {this.state.score}</p>
+        {_.range(SQUARES_COUNT).map((index) => (
+          <div 
+            onClick={() => (this.state.winner === index) && this.shuffle()}
+            style={index === this.state.winner ? WINNER_STYLE : SQUARE_STYLE}
+          />
+        ))}
+      </div>
+    );
   }
-});
+}

@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
-var TextBox = React.createClass({
-  getInitialState: function() {
-    return {
+class TextBox extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       texts: [
         { id: 1, text: '99 bottles of beer on the wall' },
         { id: 2, text: '99 bottles of beer' },
@@ -12,28 +14,32 @@ var TextBox = React.createClass({
         { id: 4, text: '98 bottles of beer on the wall' },
       ]
     };
-  },
-  shuffle: function() {
-    this.setState({ texts: _.shuffle(this.state.texts) });
-  },
-  
-  render: function() {
-    return (<div>
+  }
+
+  shuffle = (e) => {
+    this.setState(oldState => ({ texts: _.shuffle(this.state.texts) }));
+  }
+
+  render() {
+    return (
+      <div>
         <button onClick={this.shuffle}>Shuffle</button>
         <ul>
-        {this.state.texts.map((item, idx) => (
-          <li key={item.id}><input type="checkbox" />{item.text}</li>
-        ))}
+          {this.state.texts.map((item, idx) => (
+            <li key={item.id}><input type="checkbox" />{item.text}</li>
+          ))}
         </ul>
-      </div>);
+      </div>
+    );
   }
-});
-
+}
 
 const App = function(props) {
-  return (<div>
-    <TextBox />
-  </div>);
+  return (
+    <div>
+      <TextBox />
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.querySelector('main'));

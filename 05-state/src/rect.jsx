@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+export default class Rect extends React.Component {
+  static propTypes = {
     val: React.PropTypes.number.isRequired,
     checkDivision: React.PropTypes.number.isRequired,
-  },
+  }
   
   render() {
     var d = (this.props.val % this.props.checkDivision === 0);
@@ -21,4 +21,4 @@ export default React.createClass({
     
     return <div style={style}>{this.props.val}</div>
   }
-});
+}
