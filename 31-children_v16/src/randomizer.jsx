@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 
 export default class Randomizer extends React.Component {
   static propTypes = {

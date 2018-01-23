@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
-    name: React.PropTypes.string
+    name: PropTypes.string
   };
 
   static defaultProps = {

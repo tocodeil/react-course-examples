@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ColorDisplay extends React.Component {
   static propTypes = {
-    val: React.PropTypes.string.isRequired,
-    setColor: React.PropTypes.func.isRequired,
+    val: PropTypes.string.isRequired,
+    setColor: PropTypes.func.isRequired,
   };
 
   changeColor = (e) => {

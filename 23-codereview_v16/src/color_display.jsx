@@ -5,6 +5,7 @@ function ColorDisplay(props) {
     <input 
       type="color" 
       value={props.val} 
+      readOnly={true}
     />
   );
 }

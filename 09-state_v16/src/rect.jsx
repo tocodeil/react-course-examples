@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Rect extends React.Component {
   static propTypes = {
-    val: React.PropTypes.number.isRequired,
-    checkDivision: React.PropTypes.number.isRequired,
+    val: PropTypes.number.isRequired,
+    checkDivision: PropTypes.number.isRequired,
   }
   
   render() {

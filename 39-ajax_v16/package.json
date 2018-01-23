@@ -30,8 +30,8 @@
   "dependencies": {
     "jquery": "^3.3.1",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.2",
+    "react-dom": "^16.2",
     "underscore": "^1.8.3"
   }
 }

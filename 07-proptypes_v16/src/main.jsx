@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HelloWorld from './hello-world';
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
     return (<div>
       <HelloWorld name="ynon" />
@@ -11,7 +11,7 @@ const App = React.createClass({
       <HelloWorld />
     </div>);
   }
-});
+}
 
 ReactDOM.render(<App />, document.querySelector('main'));
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import * as actions from './actions/xogame';
 
 
@@ -61,10 +62,10 @@ function XOGame(props) {
 }
 
 XOGame.propTypes = {
-  board: React.PropTypes.object,
-  currentPlayer: React.PropTypes.string,
+  board: PropTypes.object,
+  currentPlayer: PropTypes.string,
 
-  dispatch: React.PropTypes.func,
+  dispatch: PropTypes.func,
 };
 
 function mapStateToProps(state) {

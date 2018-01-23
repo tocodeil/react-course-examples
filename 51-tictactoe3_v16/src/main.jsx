@@ -5,21 +5,21 @@ import _ from 'underscore';
 import TicTacToe from './tic-tac-toe';
 import MultiGame from './multi-game';
 
-const App = React.createClass({
-  getInitialState: function() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
     var games = _.range(3).map(function() {
       return {
         board: _.range(9).map(function() { return ' ' }),
         currentPlayer: 'x'          
       };        
     });
-      
-    return {
+    this.state = {
       games: games
-    }
-  },
-  
-  play: function(gameIndex, squareIndex) {
+    };
+  }
+
+  play(gameIndex, squareIndex) {
     var game = this.state.games[gameIndex];    
     var board = game.board;
     var currentPlayer = game.currentPlayer;
@@ -32,16 +32,16 @@ const App = React.createClass({
         games: this.state.games
       });
     }    
-  },
+  }
   
-  render: function() {
+  render() {
     return (<MultiGame>
             {_.map(this.state.games, function(gameData, index) {
              return <TicTacToe key={index} {...gameData} play={this.play.bind(this, index)} />
             }, this)}
   </MultiGame>);
   }
-});
+}
 
 
 ReactDOM.render(<App />, document.querySelector('main'));

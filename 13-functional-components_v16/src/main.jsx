@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 function Hello(props) {
   return <p>
@@ -7,7 +8,7 @@ function Hello(props) {
   </p>
 }
 
-Hello.propTypes    = { name: React.PropTypes.string };
+Hello.propTypes    = { name: PropTypes.string };
 Hello.defaultProps = { name: "Guest" };
 
 const App = function(props) {
