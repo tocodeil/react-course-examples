@@ -1,35 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-class SingleInput extends React.Component{
-  static propTypes = {
-    val: PropTypes.string
+export default class SingleInput extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state= { val : 'type something...'}
   }
 
-  static defaultProps = {
-    val: 'type something...'
+
+  onChange = (e) => {
+    this.setState({
+      val : e.target.value
+    
+    });
   }
 
   render() {
-    var divStyle = { paddingBottom: '5px' }
+    var divStyle = { marginBottom: '10px' }
     return (
-      <div style={divStyle}>
-        <input type="text" value={this.props.val}/>
+      <div >
+        <input style={divStyle} type="text" value={this.state.val} onChange={this.onChange}/>
+        <br/>
+        <input style={divStyle} type="text" value={this.state.val} onChange={this.onChange}/>
+        <br/>
+        <input style={divStyle} type="text" value={this.state.val} onChange={this.onChange}/>
+        <br/>
+        <input style={divStyle} type="text" value={this.state.val} onChange={this.onChange}/>
+        <br/>
+        <input style={divStyle} type="text" value={this.state.val} onChange={this.onChange}/>
       </div>
     )    
   }
 }
 
-class MultiInput extends React.Component {
+export default class MultiInput extends React.Component {
     render() {
       return (<div>
-        <SingleInput />
-        <SingleInput />
-        <SingleInput />
-        <SingleInput />
         <SingleInput />
       </div>);
     }
   }
 
-  ReactDOM.render(<MultiInput />, document.querySelector('main'));
+ReactDOM.render(<MultiInput />, document.querySelector('main'));
