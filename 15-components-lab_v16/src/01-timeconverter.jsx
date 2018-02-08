@@ -1,37 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TimeConvertor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { Hours : "", Minutes : "" , Seconds : ""};
+        this.state = { time: { hours: "" , min: "" , sec: ""}};
       }
 
-      convert = (e) => {
-        if(e.target.id == 'hours'){
-            this.setState({ Hours: e.target.value  });
-            this.setState({ Minutes: e.target.value * 60 });
-            this.setState({ Seconds: e.target.value * 60 * 60 });
+      convert (e,type) {
+       
+        if(type === 'hr'){
+          this.setState({ time: { hours: e.target.value , min:  e.target.value * 60 , sec: e.target.value * 60 * 60}  });
          }
 
-         if(e.target.id == 'min'){
-            this.setState({ Hours: e.target.value / 60  });
-            this.setState({ Minutes: e.target.value });
-            this.setState({ Seconds: e.target.value * 60  });
+         if(type === 'min'){
+          this.setState({ time: { hours: e.target.value / 60 , min:  e.target.value  , sec: e.target.value * 60 }  });
          }
 
-         if(e.target.id == 'sec'){
-            this.setState({ Hours: e.target.value /60 / 60 });
-            this.setState({ Minutes: e.target.value / 60 });
-            this.setState({ Seconds: e.target.value  });
+         if(type == 'sec'){
+          this.setState({ time: { hours: e.target.value / 60 / 60 , min:  e.target.value /60 , sec: e.target.value  }  });
          }
       }
 
       render() {
         return (<div>
-            Hours <input id="hours" onChange={this.convert} value={this.state.Hours} /> <p></p>
-            Minutes <input id="min" onChange={this.convert} value={this.state.Minutes} />  <p></p>
-            Seconds <input id ="sec" onChange={this.convert} value={this.state.Seconds} />  <p></p>
+            Hours <input  onChange={(e,type) => this.convert(e,"hr")} value={this.state.time.hours} /> <p></p>
+            Minutes <input  onChange={(e,type) => this.convert(e,"min")} value={this.state.time.min} />  <p></p>
+            Seconds <input  onChange={(e,type) => this.convert(e,"sec")} value={this.state.time.sec} />  <p></p>
           </div>);
       }
 
