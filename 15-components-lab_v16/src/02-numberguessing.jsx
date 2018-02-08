@@ -6,14 +6,18 @@ class GuessNumber extends React.Component {
    
     constructor(props) {
         super(props);
-        this.state = { randomNumber : Math.round(Math.random() * 1000) , message : "" };
+        this.state = { randomNumber : Math.round(Math.random() * 1000) , guessedNo : 0 ,message : "" };
       }
 
 
-      check = (e) =>{
-        let guessedNo = parseInt(document.getElementById("guessedNo").value)
+      setGuessedNo = (e) => {
+        this.setState({guessedNo : e.target.value})
+      }
 
-        if(guessedNo === this.state.randomNumber){
+      check = (e) =>{
+        let guessedNo = this.state.guessedNo
+
+        if(guessedNo == this.state.randomNumber){
             this.setState({ message: "Bingo!" });
         }
 
@@ -30,9 +34,9 @@ class GuessNumber extends React.Component {
 
       render() {
         return (<div>
-            Guess Number <input type="text" id="guessedNo"  /> 
+            Guess Number <input type="text" onChange={this.setGuessedNo}  /> 
             <input id ="btn" type="button" onClick={this.check} value="Guess" />  <p></p>
-            <p>{this.state.message}</p>
+            <p>{this.state.message}{this.state.randomNumber}  {this.state.guessedNo}</p>
           </div>);
       }
 }
