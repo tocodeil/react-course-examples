@@ -1,14 +1,32 @@
-/**
- * Synchronised input fields
- *
- * Create a React component that shows 5 input fields
- * and synchronises their input:
- * Each time the value in one input changes,
- * all other input fields should show that updated value
- */
-
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class MultiInput extends React.Component {
+export default class Myinput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "type something..." };
+  }
+
+
+   handleChange = (event) => {
+     this.setState({
+       value: event.target.value
+      });
+   }
+
+  render() {
+    return (
+      <div>
+        <p/>
+        <input type="text" value={this.state.value} onChange={this.handleChange}/>
+        <p/>
+        <input type="text" value={this.state.value} onChange={this.handleChange}/>
+        <p/>
+        <input type="text" value={this.state.value} onChange={this.handleChange}/>
+        <p/>
+        <input type="text" value={this.state.value} onChange={this.handleChange}/>
+      </div>
+    )    
+  }
 }
 
