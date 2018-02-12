@@ -4,9 +4,8 @@ export default class ShoppingListWithFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            total: 0,
-            items: [],
-            fullList:[]
+            filterText:"",
+            items: []
         };
     }
 
@@ -23,8 +22,7 @@ export default class ShoppingListWithFilters extends React.Component {
         updatedList[updatedItemIndex] = updatedItem;
 
         this.setState({ 
-            items: updatedList,
-            fullList: updatedList
+            items: updatedList
         });
 
     }
@@ -32,44 +30,8 @@ export default class ShoppingListWithFilters extends React.Component {
     delete = (index) => {
         const itemsArr = this.state.items;
         this.setState({ 
-          items: [...itemsArr.slice(0,index), ...itemsArr.slice(index+1)],
-          fullList: [...itemsArr.slice(0,index), ...itemsArr.slice(index+1)]
+          items: [...itemsArr.slice(0,index), ...itemsArr.slice(index+1)]
         });
-    }
-
-
-    filterByName = () => {
-        let filter = this.nameFilter.value;
-        
-        if(filter.length == 0){
-            this.setState({ 
-                items: this.state.fullList
-            });
-        }else{
-            let filteredItems = this.state.items.filter( el => el.name === filter );
-            if(filteredItems.length > 0){
-                this.setState({ 
-                    items: filteredItems
-                });
-             }
-        }
-    }
-
-    isBought = () => {
-        let filter = this.boughtItems.checked;
-        
-        if(!filter){
-            this.setState({ 
-                items: this.state.fullList
-            });
-        }else{
-            let filteredItems = this.state.items.filter( el => el.unit === 0 );
-            if(filteredItems.length > 0){
-                this.setState({ 
-                    items: filteredItems
-                });
-            }
-        }
     }
 
 
@@ -79,8 +41,7 @@ export default class ShoppingListWithFilters extends React.Component {
         let itemImageUrl = this.url.value;
         let itemUnit = this.unit.value;
 
-        this.setState({ total:parseInt([this.state.total])+1,items: [...this.state.items, { id:Math.random()*100 , name: itemName , url: itemImageUrl ,unit: itemUnit}],
-        fullList: [...this.state.items, { id:Math.random()*100 , name: itemName , url: itemImageUrl ,unit: itemUnit}] })
+        this.setState({ total:parseInt([this.state.total])+1,items: [...this.state.items, { id:Math.random()*100 ,name: itemName , url: itemImageUrl ,unit: itemUnit}] })
     }
 
 
@@ -98,6 +59,24 @@ export default class ShoppingListWithFilters extends React.Component {
             overflow: "hidden",
             fontSize: 14,
         }
+
+        let itemsList = this.state.items
+        let filterTxt = this.state.filterText
+
+        const filterByName = () => {
+            let filter = this.nameFilter.value
+                this.setState({ 
+                    filterText: filter
+                });
+        }
+
+      
+        if(filterTxt.length>0){
+
+            let ischecked = this.boughtItems.checked
+        
+            itemsList =   itemsList.filter(element => element.name === filterTxt);
+         }  
 
         return (
             <div>
@@ -119,10 +98,7 @@ export default class ShoppingListWithFilters extends React.Component {
                             <td></td>
                             <td><input type="button" value="Add Item" onClick={this.add} /><p /></td>
                     </tr>
-                    <tr>
-                            <td>Total Items:</td>
-                            <td>{this.state.total}</td>
-                    </tr>
+                  
                 
                    
                   </tbody>
@@ -131,28 +107,32 @@ export default class ShoppingListWithFilters extends React.Component {
                 <table style={style}> 
                 <tbody>
                      <tr>
-                        <td ></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Item Name <input type="text" onChange={() => this.filterByName()} ref={nameFilter => { this.nameFilter = nameFilter }} /></td>
+                        <td>Item Name <input type="text" onChange={() =>  filterByName(itemsList)} ref={nameFilter => { this.nameFilter = nameFilter }} /></td>
                         <td>Item Image</td>
                         <td>Item Unit </td>
-                        <td><input type="checkbox" onChange={() => this.isBought()} ref={boughtItems => { this.boughtItems = boughtItems }}/> Done?</td>
+                        <td></td>
                         <td></td>
                     </tr>
-                    {this.state.items.map((element, index) => {
+                    {itemsList.map((element, index) => {
                         return <tr key={index}>
                             <td>{element.name}</td>
                             <td><img src={element.url}  height="42" width="42"/></td>
                             <td>{element.unit}</td>
-                            <td><input type="text" ref={unitsNo => { this.unitsNo = unitsNo }} /><input type="button" value="Done!" onClick={() => this.buy(element.id)} /></td>
+                            <td>
+                            <input type="text"  ref={unitsNo => { this.unitsNo = unitsNo }} />
+                            <input  type="button" value="Bye!"  onClick={() => this.buy(element.id)} />
+                            </td>
                             <td><input type="button" value="Delete" onClick={() => this.delete(index)} /></td>
                         </tr>
                     })}
+                    
                     </tbody>
                    </table>
                
