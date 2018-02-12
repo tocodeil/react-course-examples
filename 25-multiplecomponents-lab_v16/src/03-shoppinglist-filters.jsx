@@ -9,10 +9,10 @@ export default class ShoppingListWithFilters extends React.Component {
         };
     }
 
-    buy = (itemId) => {
+     modifyQuantity(e, itemId){
         let updatedItemIndex = this.state.items.findIndex( el => el.id === itemId);
         let updatedItem = this.state.items[updatedItemIndex];
-        let noOfUnits = this.unitsNo.value
+        let noOfUnits = e.target.closest("td").querySelector("input").value;
 
         if(updatedItem.unit > 0){
             updatedItem.unit = updatedItem.unit- noOfUnits;
@@ -21,8 +21,13 @@ export default class ShoppingListWithFilters extends React.Component {
         let updatedList = this.state.items
         updatedList[updatedItemIndex] = updatedItem;
 
+        return updatedList;
+      }
+
+    buy = (e,itemId) => {
+
         this.setState({ 
-            items: updatedList
+            items: this.modifyQuantity(e,itemId)
         });
 
     }
@@ -44,6 +49,12 @@ export default class ShoppingListWithFilters extends React.Component {
         this.setState({ total:parseInt([this.state.total])+1,items: [...this.state.items, { id:Math.random()*100 ,name: itemName , url: itemImageUrl ,unit: itemUnit}] })
     }
 
+     filterByName = () => {
+        let filter = this.nameFilter.value
+            this.setState({ 
+                filterText: filter
+            });
+    }
 
     render() {
 
@@ -63,18 +74,9 @@ export default class ShoppingListWithFilters extends React.Component {
         let itemsList = this.state.items
         let filterTxt = this.state.filterText
 
-        const filterByName = () => {
-            let filter = this.nameFilter.value
-                this.setState({ 
-                    filterText: filter
-                });
-        }
-
+    
       
         if(filterTxt.length>0){
-
-            let ischecked = this.boughtItems.checked
-        
             itemsList =   itemsList.filter(element => element.name === filterTxt);
          }  
 
@@ -114,7 +116,7 @@ export default class ShoppingListWithFilters extends React.Component {
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Item Name <input type="text" onChange={() =>  filterByName(itemsList)} ref={nameFilter => { this.nameFilter = nameFilter }} /></td>
+                        <td>Item Name <input type="text" onChange={() =>  this.filterByName(itemsList)} ref={nameFilter => { this.nameFilter = nameFilter }} /></td>
                         <td>Item Image</td>
                         <td>Item Unit </td>
                         <td></td>
@@ -127,7 +129,7 @@ export default class ShoppingListWithFilters extends React.Component {
                             <td>{element.unit}</td>
                             <td>
                             <input type="text"  ref={unitsNo => { this.unitsNo = unitsNo }} />
-                            <input  type="button" value="Bye!"  onClick={() => this.buy(element.id)} />
+                            <input  type="button" value="Bye!"  onClick={(e) => this.buy(e,element.id)} />
                             </td>
                             <td><input type="button" value="Delete" onClick={() => this.delete(index)} /></td>
                         </tr>
