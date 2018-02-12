@@ -13,9 +13,10 @@ export default class ShoppingListWithFilters extends React.Component {
     buy = (itemId) => {
         let updatedItemIndex = this.state.items.findIndex( el => el.id === itemId);
         let updatedItem = this.state.items[updatedItemIndex];
-       
+        let noOfUnits = this.unitsNo.value
+
         if(updatedItem.unit > 0){
-            updatedItem.unit = updatedItem.unit-1;
+            updatedItem.unit = updatedItem.unit- noOfUnits;
         }
        
         let updatedList = this.state.items
@@ -148,7 +149,7 @@ export default class ShoppingListWithFilters extends React.Component {
                             <td>{element.name}</td>
                             <td><img src={element.url}  height="42" width="42"/></td>
                             <td>{element.unit}</td>
-                            <td><input type="button" value="Done!" onClick={() => this.buy(element.id)} ref={doneBtn => { this.doneBtn = doneBtn }}/></td>
+                            <td><input type="text" ref={unitsNo => { this.unitsNo = unitsNo }} /><input type="button" value="Done!" onClick={() => this.buy(element.id)} /></td>
                             <td><input type="button" value="Delete" onClick={() => this.delete(index)} /></td>
                         </tr>
                     })}
