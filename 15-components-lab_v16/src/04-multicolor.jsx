@@ -17,5 +17,5 @@
 import tinycolor from 'tinycolor2';
 import React from 'react';
 
-export default React.createClass({
-});
+export default class MultiColor extends React.Component {
+}

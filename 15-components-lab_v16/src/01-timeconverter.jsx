@@ -8,5 +8,5 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class TimeConverter extends React.Component {
+}

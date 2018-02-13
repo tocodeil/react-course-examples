@@ -13,5 +13,5 @@
 
 import React from 'react';
 
-export default React.createClass({
-});
+export default class ColorPicker extends React.Component {
+}
